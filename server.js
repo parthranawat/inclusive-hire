@@ -16,12 +16,12 @@ app.use([
   Routes,
 ]);
 
+// const io = (module.exports.io = require("socket.io")(server));
 const io = (module.exports.io = require("socket.io")(server, {
   cors: {
     origin: "*",
   },
 }));
-
 const socketManager = require("./app/socketManager");
 io.on("connection", socketManager);
 
