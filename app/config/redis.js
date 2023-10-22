@@ -5,7 +5,7 @@ var options = {
   auth_pass: process.env.REDIS_PASSWORD,
 };
 
-let client = redis.createClient();
+let client = redis.createClient(options);
 
 client.on("error", (error) => {
   console.log(error);
