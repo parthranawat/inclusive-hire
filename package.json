@@ -1,0 +1,27 @@
+{
+  "name": "inclusive-hire",
+  "version": "1.0.0",
+  "description": "Welcome to InclusiveHire! This project aims to create a web-based video conferencing system designed to eliminate gender-based bias and promote diversity in technical interviews.",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "1.19.0",
+    "cors": "2.8.5",
+    "dotenv": "8.2.0",
+    "express": "4.17.1",
+    "redis": "3.0.2",
+    "socket.io": "3.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parthranawat/inclusive-hire.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/parthranawat/inclusive-hire/issues"
+  },
+  "homepage": "https://github.com/parthranawat/inclusive-hire#readme"
+}
