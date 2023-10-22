@@ -89,6 +89,7 @@ const CallPage = () => {
             socket.emit("code", { code: data, url }, (cbData) => {
               console.log("code sent");
             });
+
           }
         });
 
@@ -137,8 +138,9 @@ const CallPage = () => {
 
           video.play();
         });
+
       })
-      .catch(() => {});
+      .catch(() => { });
   };
 
   const sendMsg = (msg) => {

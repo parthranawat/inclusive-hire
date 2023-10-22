@@ -4,7 +4,7 @@ import {
   faExclamationCircle,
   faCog,
 } from "@fortawesome/free-solid-svg-icons";
-import "./Header.scss";
+import './Header.scss';
 
 const Header = () => {
   return (
