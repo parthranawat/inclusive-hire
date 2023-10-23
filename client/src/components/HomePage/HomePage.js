@@ -19,10 +19,10 @@ const HomePage = () => {
       <div className="body">
         <div className="left-side">
           <div className="content">
-            <h2>Premium video meetings. Now free for everyone.</h2>
+            <h2>Unlocking Diversity,</h2> <h2>One Interview at a Time</h2>
             <p>
-              We re-engineered the service we built for secure business
-              meetings, Google Meet, to make it free and available for all.
+              We re-engineered the service we built for secure interview
+              meetings, Inclusive Hire, to make it free and available for all.
             </p>
             <div className="action-btn">
               <button className="btn green" onClick={startCall}>
@@ -39,7 +39,7 @@ const HomePage = () => {
             </div>
           </div>
           <div className="help-text">
-            <a href="">Learn more</a> about Google Meet
+            <a href="">Learn more</a> about Inclusive Hire
           </div>
         </div>
         <div className="right-side">
