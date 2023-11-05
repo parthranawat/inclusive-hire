@@ -15,10 +15,14 @@ import Alert from "../UI/Alert/Alert";
 import MeetingInfo from "../UI/MeetingInfo/MeetingInfo";
 import CallPageFooter from "../UI/CallPageFooter/CallPageFooter";
 import CallPageHeader from "../UI/CallPageHeader/CallPageHeader";
+import * as Tone from 'tone'
 
 let peer = null;
 const socket = io.connect(process.env.REACT_APP_BASE_URL);
 const initialState = [];
+
+const meter = new Tone.Meter();
+const mic = new Tone.UserMedia().connect(meter);
 
 const CallPage = () => {
   const history = useHistory();
@@ -39,6 +43,7 @@ const CallPage = () => {
   const [isMessenger, setIsMessenger] = useState(false);
   const [messageAlert, setMessageAlert] = useState({});
   const [isAudio, setIsAudio] = useState(true);
+  const [isVideo, setIsVideo] = useState(true);
 
   useEffect(() => {
     if (isAdmin) {
@@ -63,7 +68,7 @@ const CallPage = () => {
     navigator.mediaDevices
       .getUserMedia({
         video: true,
-        audio: true,
+        audio: false,
       })
       .then((stream) => {
         setStreamObj(stream);
@@ -188,9 +193,60 @@ const CallPage = () => {
     setIsPresenting(false);
   };
 
-  const toggleAudio = (value) => {
-    streamObj.getAudioTracks()[0].enabled = value;
+  const toggleVideo = (value) => {
+    streamObj.getVideoTracks()[0].enabled = value;
     setIsAudio(value);
+  }
+
+  const toggleAudio = (value) => {
+    // streamObj.getAudioTracks()[0].enabled = value;
+    // setIsAudio(value);
+    if (value == 0) {
+      mic.close()
+    }
+    else {
+      mic
+      .open()
+      .then(() => {
+        // promise resolves when input is available
+        console.log("mic open");
+        // print the incoming mic levels in decibels
+        // setInterval(() => console.log(meter.getValue()), 100);
+    
+        // const $startStopButton = document.getElementById("start-stop");
+        // const $upButton = document.getElementById("up");
+        // const $downButton = document.getElementById("down");
+    
+        const oscillator = new Tone.Oscillator();
+        const pitchShift = new Tone.PitchShift();
+    
+        mic.connect(pitchShift);
+        pitchShift.toMaster();
+        pitchShift.pitch += 5;
+    
+        // $startStopButton.onclick = () => {
+        //   if ($startStopButton.textContent === "start") {
+        //     $startStopButton.textContent = "stop";
+        //     oscillator.start();
+        //   } else {
+        //     $startStopButton.textContent = "start";
+        //     oscillator.stop();
+        //   }
+        // };
+    
+        // $upButton.onclick = () => (pitchShift.pitch += 1);
+        // $downButton.onclick = () => (pitchShift.pitch -= 1);
+    
+        let stream = pitchShift.context.createMediaStreamDestination();
+    
+        console.log(stream);
+      })
+      .catch((e) => {
+        // promise is rejected when the user doesn't have or allow mic access
+        console.log("mic not open");
+      });
+    }
+    setIsAudio(value)
   };
 
   const disconnectCall = () => {
@@ -216,6 +272,8 @@ const CallPage = () => {
         isAudio={isAudio}
         toggleAudio={toggleAudio}
         disconnectCall={disconnectCall}
+        isVideo={isVideo}
+        toggleVideo={toggleVideo}
       />
 
       {isAdmin && meetInfoPopup && (
