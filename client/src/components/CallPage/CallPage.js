@@ -195,7 +195,7 @@ const CallPage = () => {
 
   const toggleVideo = (value) => {
     streamObj.getVideoTracks()[0].enabled = value;
-    setIsAudio(value);
+    setIsVideo(value);
   }
 
   const toggleAudio = (value) => {
@@ -222,8 +222,10 @@ const CallPage = () => {
     
         mic.connect(pitchShift);
         pitchShift.toMaster();
-        pitchShift.pitch += 5;
-    
+
+        if (!isAdmin) {
+          pitchShift.pitch += 5;
+        }
         // $startStopButton.onclick = () => {
         //   if ($startStopButton.textContent === "start") {
         //     $startStopButton.textContent = "stop";
