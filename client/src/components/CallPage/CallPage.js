@@ -94,7 +94,6 @@ const CallPage = () => {
             socket.emit("code", { code: data, url }, (cbData) => {
               console.log("code sent");
             });
-
           }
         });
 
@@ -143,9 +142,8 @@ const CallPage = () => {
 
           video.play();
         });
-
       })
-      .catch(() => { });
+      .catch(() => {});
   };
 
   const sendMsg = (msg) => {
@@ -251,6 +249,11 @@ const CallPage = () => {
     setIsAudio(value)
   };
 
+  const toggleVideo = (value) => {
+    streamObj.getVideoTracks()[0].enabled = value;
+    setIsVideo(value);
+  };
+
   const disconnectCall = () => {
     peer.destroy();
     history.push("/");
@@ -272,7 +275,9 @@ const CallPage = () => {
         stopScreenShare={stopScreenShare}
         screenShare={screenShare}
         isAudio={isAudio}
+        isVideo={isVideo}
         toggleAudio={toggleAudio}
+        toggleVideo={toggleVideo}
         disconnectCall={disconnectCall}
         isVideo={isVideo}
         toggleVideo={toggleVideo}
